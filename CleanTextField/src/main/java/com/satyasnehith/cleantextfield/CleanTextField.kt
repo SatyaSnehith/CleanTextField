@@ -87,7 +87,17 @@ fun CleanTextField(
                     val isEmpty = textFieldValueState.value.text.isEmpty()
                     isFocused.value = if (it.isFocused) true else !isEmpty
                 }
-                .border(1.dp, MaterialTheme.colorScheme.onBackground, RoundedCornerShape(5.dp))
+                .border(
+                    if (isFocused.value) 1.5.dp else 1.5.dp,
+                    MaterialTheme
+                        .colorScheme
+                        .onBackground
+                        .copy(
+                            alpha = if (isFocused.value) 1f else 0.33f
+                        )
+                        ,
+                    RoundedCornerShape(8.dp)
+                )
                 .padding(
                     bottom = textBottomPadding.dp,
                     start = textStartPadding.dp
@@ -119,8 +129,7 @@ fun CleanTextField(
                             fontSize = placeholderFontSize.value.sp,
                             color = MaterialTheme
                                 .colorScheme
-                                .onSurfaceVariant
-                                .copy(alpha = 0.7f)
+                                .outline
                         ),
                     )
                     AnimatedVisibility(
